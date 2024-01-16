@@ -202,7 +202,7 @@ def run_roc(data, W, labels, pca_type = 'wpca', manifold = None, t_data = None, 
     if pca_type != 'dpcp':
         preds = reconst_class_man(manifold, mu, data, t_data, W)
     else:
-        preds = min_var_class_man(t_data, W)
+        preds = 1-min_var_class_man(t_data, W)
 
 
     # Compute ROC curve and AUC

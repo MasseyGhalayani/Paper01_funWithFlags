@@ -140,10 +140,10 @@ if __name__ == '__main__':
 
             print(results)
             
-            results.to_csv(f'../Results/hand1_outlier_res{trial}.csv')
+            results.to_csv(f'../Results/hand_outlier_res{trial}.csv')
 
 
-    results = pd.read_csv('../Results/hand1_outlier_res4.csv', index_col = 0)
+    results = pd.read_csv('../Results/hand_outlier_res4.csv', index_col = 0)
 
     max_res = pd.DataFrame(columns = results.columns)
 
@@ -180,4 +180,4 @@ if __name__ == '__main__':
 
 
     plt.tight_layout()
-    plt.savefig('../Results/hand1_outlier_res.pdf', bbox_inches = 'tight')
+    plt.savefig('../Results/hand_outlier_res.pdf', bbox_inches = 'tight')
