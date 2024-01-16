@@ -1,0 +1,11 @@
+autograd==1.5
+matplotlib==3.7.0
+numpy==1.23.5
+pandas==2.0.1
+pymanopt==2.1.1
+scikit_learn==1.2.2
+scipy==1.10.0
+seaborn==0.13.0
+sympy==1.11.1
+tqdm==4.65.0
+
