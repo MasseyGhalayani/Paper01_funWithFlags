@@ -87,11 +87,11 @@ def procrustes_hand(hands):
     normalized_hands = hands
     old_normalized_hands = hands
     
-    fig = plt.figure()
-    for hand in normalized_hands:
-        showInterp(interp(unmake_1d(hand)))
-    plt.title('Before Procrustes Alignment')
-    plt.show()
+    # fig = plt.figure()
+    # for hand in normalized_hands:
+    #     showInterp(interp(unmake_1d(hand)))
+    # plt.title('Before Procrustes Alignment')
+    # plt.show()
     
     for count in range(5):
         mean_hand = np.mean(normalized_hands,axis = 0)
@@ -101,10 +101,10 @@ def procrustes_hand(hands):
             normalized_hands[i] = make_1d(mtx)
 
         
-    fig = plt.figure()
-    for hand in normalized_hands:
-        showInterp(interp(unmake_1d(hand)))
-    plt.title('After Procrustes Alignment')
-    plt.show()
+    # fig = plt.figure()
+    # for hand in normalized_hands:
+    #     showInterp(interp(unmake_1d(hand)))
+    # plt.title('After Procrustes Alignment')
+    # plt.show()
     
     return normalized_hands

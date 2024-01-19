@@ -41,7 +41,26 @@ class GeomstatsShapeSpace():
     def random_point(self):
         return self._man.random_point()
 
+def generate_ellipse_outlier1(seed: int):
 
+    np.random.seed(seed)
+    # Define ellipse parameters
+    center_x = .1*np.random.normal(0,1)  # X-coordinate of the center #was .1
+    center_y = .1*np.random.normal(0,1)  # Y-coordinate of the center #was .1
+    major_axis = .4+ np.random.normal(0,.1)#np.random.normal(0,.3) # np.random.normal(0,1)  # Length of the major axis
+    minor_axis = .4+ np.random.normal(0,.1)#np.random.normal(0,.3)  #np.random.normal(0,1)   # Length of the minor axis
+
+
+    # Generate data points on the ellipse
+    theta = np.linspace(.1 + np.random.rand(),2*np.pi, 56)
+    x = center_x + major_axis * np.cos(theta)
+    y = center_y + minor_axis * np.sin(theta)
+    
+    pt = np.vstack([x,y]).T
+
+    pt = pt - np.mean(pt, axis = 0)
+    pt = pt/np.linalg.norm(pt)
+    return pt
 
 if __name__ == '__main__':
 
@@ -58,26 +77,57 @@ if __name__ == '__main__':
 
         for n_outs in [10,20,30,40,50,60,70,80,90]:
             
+
             # load data
             filepath = './all/shapes'
             segmentationlist = readSegmentations(filepath,getxy)[0]
-            hands = np.array(segmentationlist).T
+            hands0 = np.array(segmentationlist).T
+            hands = procrustes_hand(hands0)
 
-
-            shapes = []
+            hands1 = []
             for h in hands:
                 k_shape = unmake_1d(h)
                 k_shape = k_shape - np.mean(k_shape, axis = 0)
                 k_shape = k_shape/np.linalg.norm(k_shape)
-                shapes.append(k_shape)
+                hands1.append(k_shape)
 
-            shapes = shapes
 
+            x = hands1[0]
+
+            ys = [hands1[7],hands1[9]] #works with 7
+
+            np.random.seed(42)
+
+            shapes = []
+            for i in np.linspace(-1,1,40):
+                idx = np.random.choice([0,1])
+                v = manifold.log(x,ys[idx])
+                inlier = manifold.exp(x, i*v)
+                shapes.append(inlier)
+
+            np.random.seed(trial)
             for i in range(n_outs):
-                outlier = generate_ellipse_outlier(i+100*trial)
+                # x= unmake_1d(hands[np.random.choice(np.arange(11,40,8))])
+                x= unmake_1d(hands[35])
+                x = x - np.mean(x, axis = 0)
+                x = x/np.linalg.norm(x)
+                y = manifold.random_point()
+                v = manifold.log(x,y)
+                outlier = manifold.exp(x, .04*np.random.rand()*v) #.05
                 shapes.append(outlier)
+            # x = generate_ellipse_outlier1(trial)
+            # for i in range(n_outs):
+            #     # x= unmake_1d(hands[np.random.choice(np.arange(11,40,8))])
+            #     # x= unmake_1d(hands[35])
+            #     x = x - np.mean(x, axis = 0)
+            #     x = x/np.linalg.norm(x)
+            #     y = manifold.random_point()
+            #     v = manifold.log(x,y)
+            #     outlier = manifold.exp(x, .04*np.random.rand()*v) #.05
+            #     shapes.append(outlier)
 
             labels = [0]*40 + [1]*n_outs
+
 
             #compute median
             mean_seed = 21
@@ -140,10 +190,10 @@ if __name__ == '__main__':
 
             print(results)
             
-            results.to_csv(f'../Results/hand_outlier_res{trial}.csv')
+            results.to_csv(f'../Results/hand_outlier_res_debug{trial}.csv')
 
 
-    results = pd.read_csv('../Results/hand_outlier_res4.csv', index_col = 0)
+    results = pd.read_csv('../Results/hand_outlier_res_debug4.csv', index_col = 0)
 
     max_res = pd.DataFrame(columns = results.columns)
 
@@ -180,4 +230,4 @@ if __name__ == '__main__':
 
 
     plt.tight_layout()
-    plt.savefig('../Results/hand_outlier_res.pdf', bbox_inches = 'tight')
+    plt.savefig('../Results/hand_outlier_res_debug.pdf', bbox_inches = 'tight')

@@ -172,7 +172,7 @@ def min_var_class_man(t_data: np.array, W: np.array):
     errs = []
     for i in range(len(t_data.T)):  
         x = t_data[:,i]
-        errs.append(np.linalg.norm(x @ W))
+        errs.append(np.linalg.norm(x @ W )) # was x @ W
 
     preds = np.array(errs)
     preds = preds/np.max(preds)
@@ -202,8 +202,7 @@ def run_roc(data, W, labels, pca_type = 'wpca', manifold = None, t_data = None, 
     if pca_type != 'dpcp':
         preds = reconst_class_man(manifold, mu, data, t_data, W)
     else:
-        preds = 1-min_var_class_man(t_data, W)
-
+        preds = min_var_class_man(t_data, W) # is (1- bla) for paper
 
     # Compute ROC curve and AUC
     fpr, tpr, thresholds = roc_curve(labels, preds)
@@ -243,8 +242,8 @@ def generate_outlier(seed):
 def generate_ellipse_outlier(seed: int):
     np.random.seed(seed)
     # Define ellipse parameters
-    center_x = .1*np.random.normal(0,1)  # X-coordinate of the center 
-    center_y = .1*np.random.normal(0,1)  # Y-coordinate of the center
+    center_x = .1*np.random.normal(0,1)  # X-coordinate of the center #was .1
+    center_y = .1*np.random.normal(0,1)  # Y-coordinate of the center #was .1
     major_axis = .4+ np.random.normal(0,.5)#np.random.normal(0,.3) # np.random.normal(0,1)  # Length of the major axis
     minor_axis = .4+ np.random.normal(0,.5)#np.random.normal(0,.3)  #np.random.normal(0,1)   # Length of the minor axis
 
