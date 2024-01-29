@@ -172,7 +172,7 @@ def min_var_class_man(t_data: np.array, W: np.array):
     errs = []
     for i in range(len(t_data.T)):  
         x = t_data[:,i]
-        errs.append(np.linalg.norm(x @ W )) # was x @ W
+        errs.append(np.linalg.norm(x @ W )) 
 
     preds = np.array(errs)
     preds = preds/np.max(preds)
@@ -224,7 +224,7 @@ def run_roc(data, W, labels, pca_type = 'wpca', manifold = None, t_data = None, 
         plt.show()
 
     return roc_auc, preds, optimal_threshold
-   
+
 def generate_outlier(seed):
     np.random.seed(seed)
 

@@ -1,2 +1,5 @@
 *.csv
 scratch*
+*/data/*
+*.npy
+*UCMerced*

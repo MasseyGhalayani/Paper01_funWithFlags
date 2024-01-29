@@ -204,8 +204,8 @@ def initialize(data: np.array, pca_type: str, init: str, rand_seed: int, n_k: in
     return B0
 
 def flag_robust_pca(data: np.array, flag_type: list, pca_type: str, max_iters: int = 50, 
-                  init: str = 'svd', return_all: bool = False, 
-                  verbose: bool = False, rand_seed: int = 123):
+                  init: str = 'svd', return_all: bool = False, verbose: bool = False, 
+                  rand_seed: int = 123):
     '''
     Flags of principal directions for fRPCA, fWPCA, and fDPCP
 
@@ -395,7 +395,7 @@ def weighted_flag_pca(X: np.array, Ws: list, n: int, pca_type: str, initial_gues
         def cost(point):
             f = 0
             for i in range(k):
-                f -= np.trace(- Xs[i] @ point @ Is[i] @ point.T)
+                f = np.trace(Xs[i] @ point @ Is[i] @ point.T)
             return f
 
     else:
