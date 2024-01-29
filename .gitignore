@@ -3,3 +3,5 @@ scratch*
 */data/*
 *.npy
 *UCMerced*
+*.tiff
+*.mat
