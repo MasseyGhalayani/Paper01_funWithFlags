@@ -106,7 +106,10 @@ def solve_stiefel(A: list, B: np.array, pca_type: str, Is: list) -> np.array:
     problem = pymanopt.Problem(St, cost)
 
     # initialize CGD optimizer over stiefel manifold(600 iterations)
-    optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 0, max_iterations= 600)
+    optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 1, max_iterations= 600)
+    # optimizer = pymanopt.optimizers.steepest_descent.SteepestDescent(verbosity = 2, min_step_size = 1e-4) 
+    # optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 2, max_iterations= 2000, orth_value = 1e-4)
+    #, min_step_size = 1e-3) #, line_searcher = pymanopt.optimizers.line_search.BackTrackingLineSearcher())#, beta_rule = 'HagerZhang')
 
     # solve optimization over stiefel manifold
     result = optimizer.run(problem, initial_point = B)
@@ -171,13 +174,14 @@ def initialize(data: np.array, pca_type: str, init: str, rand_seed: int, n_k: in
         U,_,_ = scipy.linalg.svd(data)
         if pca_type in ['dpcp']:
             B0 = U[:,-n_k:]
+            np.random.default_rng().shuffle(B0, axis = 1)
         elif pca_type in ['rpca', 'wpca']:
             B0 = U[:,:n_k]
         else:
             print(f'pca_type {pca_type} not recognized')
 
     elif init == 'noisy_svd':
-        U,_,_ = scipy.linalg.svd(data + np.random.normal(0,.1,size = data.shape))
+        U,_,_ = scipy.linalg.svd(data + np.random.normal(0,.01,size = data.shape))
 
         if pca_type in ['dpcp']:
             B0 = U[:,-n_k:]
@@ -405,7 +409,7 @@ def weighted_flag_pca(X: np.array, Ws: list, n: int, pca_type: str, initial_gues
     problem = pymanopt.Problem(St, cost)
 
 
-    optimizer = pymanopt.optimizers.trust_regions.TrustRegions(verbosity = 1)
+    optimizer = pymanopt.optimizers.trust_regions.ConjugateGradient(verbosity = 1)
 
     result = optimizer.run(problem, initial_point = initial_guess) #this throws a warning.
 
