@@ -70,28 +70,6 @@ def PGA0(manifold, data: list, fl_type: list, return_ts: bool = False, eps: floa
     else:
         return pds, ''
 
-def reconst_err_man(manifold, mu: np.array, data: list, t_data: np.array, W: np.array, return_data = False):
-    '''
-    Error of hand reconstruction on manifold
-    '''
-
-    rec_data = []
-    for i in range(len(t_data.T)):  
-        x = t_data[:,i]
-        t_pt = np.reshape( x @ W @ W.T, (56,2) )
-        k_shape = manifold.exp( mu , t_pt )
-        rec_data.append( k_shape )
-        
-    errs = []
-    for i in range(len(data)):   
-        # t = t_data[:,i]
-        errs.append( manifold.dist( rec_data[i], data[i] ) )
-    
-    if return_data:
-        return errs, rec_data
-    else:
-        return errs
-
 def reconst_class(data: np.array, W: np.array):
     '''
     generate a reconstruction score for a set of predictions
@@ -112,7 +90,7 @@ def reconst_class(data: np.array, W: np.array):
 
     return preds
 
-def reconst_class_man(manifold, mu: np.array, data: list, t_data: np.array, W: np.array):
+def reconst_class_man(manifold, mu: np.array, data: list, t_data: np.array, W: np.array, return_data: bool = False):
 
     ''' 
     compute reconstructions for the data. 
@@ -143,7 +121,10 @@ def reconst_class_man(manifold, mu: np.array, data: list, t_data: np.array, W: n
     #normalize by the maximum reconstruction error
     preds = preds/np.max(preds)
     
-    return preds
+    if return_data:
+        return errs, rec_data
+    else:
+        return preds
     
 def min_var_class(data: np.array, W: np.array):
     ''' 
@@ -176,6 +157,7 @@ def min_var_class_man(t_data: np.array, W: np.array):
 
     preds = np.array(errs)
     preds = preds/np.max(preds)
+
     return preds
 
 def run_roc_tangent(data, W, labels, pca_type = 'wpca', tangent = False, manifold = None, t_data = None, mu = None):

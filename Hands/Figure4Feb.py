@@ -87,10 +87,10 @@ if __name__ == '__main__':
             hands = procrustes_hand(hands0)
 
             np.random.seed(trial)
-            out_ids = np.random.choice(40, n_ins, replace = False)
+            in_ids = np.random.choice(40, n_ins, replace = False)
 
             shapes = []
-            for i in out_ids:
+            for i in in_ids:
                 h = hands[i]
                 k_shape = unmake_1d(h)
                 k_shape = k_shape - np.mean(k_shape, axis = 0)
