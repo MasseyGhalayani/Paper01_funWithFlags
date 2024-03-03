@@ -106,7 +106,7 @@ def solve_stiefel(A: list, B: np.array, pca_type: str, Is: list) -> np.array:
     problem = pymanopt.Problem(St, cost)
 
     # initialize CGD optimizer over stiefel manifold(600 iterations)
-    optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 1, max_iterations= 600)
+    optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 0, max_iterations= 600)
     # optimizer = pymanopt.optimizers.steepest_descent.SteepestDescent(verbosity = 2, min_step_size = 1e-4) 
     # optimizer = pymanopt.optimizers.conjugate_gradient.ConjugateGradient(verbosity = 2, max_iterations= 2000, orth_value = 1e-4)
     #, min_step_size = 1e-3) #, line_searcher = pymanopt.optimizers.line_search.BackTrackingLineSearcher())#, beta_rule = 'HagerZhang')

@@ -44,14 +44,16 @@ See `requirements.txt` for Python dependencies. Was built with Python 3.10.9
     pip install -r ./requirements.txt
     ```
 
-1. Visit GettingStarted.ipynb for an introduction to robust principal directions via flag manifolds
+1. Visit GettingStarted.ipynb For an introduction to robust principal directions via flag manifolds
 
 
 ## Organization
 
-* Euclidan - code for any algorithm working on euclidean data
+* Euclidan - experiments working with Euclidean data
+* Faces- outlier detection with cropped YaleFaceDatabase B and Caltech101
 * Grassmannian- synthetic datasets on Gr(2,4)
 * Hands- hands dataset
+* RemoteSensing- outlier detection with merced landuse dataset
 * Sphere- synthetic datasets on Spheres
 * scripts- workhorse scripts for all the examples
 
