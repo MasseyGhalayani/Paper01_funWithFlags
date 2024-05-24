@@ -25,23 +25,14 @@ Principal component analysis (PCA), along with its extensions to manifolds and o
 
 ## Getting Started
 
-### Dependencies
-
-See `requirements.txt` for Python dependencies. Was built with Python 3.10.9
 
 ### Quick Start (Python)
+1. Install [anaconda](https://www.anaconda.com/download) or [miniconda](https://docs.anaconda.com/free/miniconda/index.html)
 
 1. Initialize conda environment
-
     ```
-    conda create --name flag_dim_red python=3.8.8
-    conda activate flag_dim_red
-    ```
-
-1. Install requirements
-
-    ```
-    pip install -r ./requirements.txt
+    conda env create -f fun-flags.yml
+    conda activate fun-flags
     ```
 
 1. Visit GettingStarted.ipynb For an introduction to robust principal directions via flag manifolds
