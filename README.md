@@ -2,7 +2,7 @@
 
 ## Description
 
-This is the code for **Fun with Flags: Robust Principal Directions via Flag Manifolds**
+This is the code for **Fun with Flags: Robust Principal Directions via Flag Manifolds**. Watch a 5 minute teaser video for the project ![here.](https://www.youtube.com/watch?v=ce2_-Z6vGJ0).
 
 ![Robust Principal Directions](Results/PDsFlags.png)
 
