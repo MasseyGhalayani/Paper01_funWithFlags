@@ -2,9 +2,9 @@
 
 ## Description
 
-This is the code for **Fun with Flags: Robust Principal Directions via Flag Manifolds**. Watch a 5 minute teaser video for the project ![here.](https://www.youtube.com/watch?v=ce2_-Z6vGJ0).
+This is the code for **Fun with Flags: Robust Principal Directions via Flag Manifolds**. Watch a 5 minute teaser video for the project [here.](https://www.youtube.com/watch?v=ce2_-Z6vGJ0).
 
-[Robust Principal Directions](Results/PDsFlags.png)
+![Robust Principal Directions](Results/PDsFlags.png)
 
 ### Abstract
 Principal component analysis (PCA), along with its extensions to manifolds and outlier contaminated data, have been indispensable in computer vision and machine learning. In this work, we present a unifying formalism for PCA and its variants, and introduce a framework based on the flags of linear subspaces, \ie a hierarchy of nested linear subspaces of increasing dimension, which not only allows for a common implementation but also yields novel variants, not explored previously. We begin by generalizing traditional PCA methods that either maximize variance or minimize reconstruction error. We expand these interpretations to develop a wide array of new dimensionality reduction algorithms by accounting for outliers and the data manifold. To devise a common computational approach, we recast robust and dual forms of PCA as optimization problems on flag manifolds. We then integrate tangent space approximations of principal geodesic analysis (tangent-PCA) into this flag-based framework, creating novel robust and dual geodesic PCA variations. The remarkable flexibility offered by the 'flagification' introduced here enables even more algorithmic variants identified by specific flag types. Last but not least, we propose an effective convergent solver for these flag-formulations employing the Stiefel manifold. Our empirical results on both real-world and synthetic scenarios, demonstrate the superiority of our novel algorithms, especially in terms of robustness to outliers on manifolds.
