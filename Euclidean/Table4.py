@@ -10,7 +10,10 @@ import time
 
 
 from sklearn.metrics import roc_curve, auc
-from matplotlib import pyplot as plt
+import matplotlib
+matplotlib.use("TkAgg")  # or "TkAgg", "Agg", or another supported backend
+import matplotlib.pyplot as plt
+
 
 
 def ftype_roc(data, W, labels, alg = 'wpca'):
